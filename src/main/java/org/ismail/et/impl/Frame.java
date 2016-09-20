@@ -11,34 +11,51 @@ public class Frame {
 	
 	private JFrame frame;
 	private JPanel panel;
-	private JButton button;
+	private JButton buttonPlay;
+	private JButton buttonRepeat;
+	MidiNote note;
 	//private JLabel label;
 	
 	public Frame(){
+		
+		note = new MidiNote();
 		box();
+		
 	}
 	
 	public void box(){
 		
-		frame = new JFrame("Test");
+		frame = new JFrame("Random Pitch Generator");
 		frame.setVisible(true);
-		frame.setSize(100, 70);
+		frame.setSize(300, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		panel = new JPanel();
 		
-		button = new JButton("Play");
+		buttonPlay = new JButton("Play new note");
+		buttonRepeat = new JButton("Repeat");
 		//label = new JLabel("Test Label");
-		button.addActionListener( new ActionListener(){
+		buttonPlay.addActionListener( new ActionListener(){
 			
 			public void actionPerformed( ActionEvent acEvent ){
-				MidiNote.playNote();
+				
+				note.playNote();
 			}
 			
 		});
 		
+		buttonRepeat.addActionListener( new ActionListener(){
+			
+			public void actionPerformed( ActionEvent acEvent){
+				
+				note.playAgain();
+				
+			}
+			
+		});
 		
-		panel.add(button);
+		panel.add(buttonPlay);
+		panel.add(buttonRepeat);
 		//panel.add(label);
 		
 		frame.add(panel);
