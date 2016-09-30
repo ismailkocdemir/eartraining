@@ -8,27 +8,31 @@ import jm.util.Play;
 
 public class MidiNote {
 	
-	static int prevNote;
+	private int prevNote;
+	private int pitch;
+	private int startPitch;
+	private int interval;
+	
 	
 	public MidiNote(){
 		
 		prevNote = 60;
-		
+		pitch = 60;
+		startPitch = 45;
+		interval = 22;
 	}
 	
 	public void playNote() {
 		
-		int pitch;
-		
 		Random random = new Random();
-		pitch = random.nextInt(29);
+		pitch = random.nextInt(interval);
 		
 		Note note = new Note();
-		note.setPitch( 43 + pitch);
-		prevNote = 43 + pitch;
-		
+		note.setPitch( startPitch + pitch);
+		prevNote = startPitch + pitch;
+		System.out.println( prevNote );
 		Play.midi(note);
-		
+
 	}
 	
 	public void playAgain(){
@@ -39,6 +43,21 @@ public class MidiNote {
 		
 	}
 	
+	public void setStartPitch( int spitch ){
+		startPitch = spitch;
+	}
+	
+	public void setInterval( int inter){
+		interval = inter;
+	}
+	
+	public int getStartPitch(){
+		return startPitch;
+	}
+	
+	public int getInterval(){
+		return interval;
+	}
 	
 	
 }

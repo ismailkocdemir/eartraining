@@ -1,52 +1,65 @@
 package org.ismail.et.impl;
 
-import javax.swing.*;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 
 import org.ismail.et.impl.MidiNote;
+import org.ismail.et.impl.Range;
+//import org.ismail.et.impl.Events;
 
-public class Frame {
+public class Frame extends Application {
+
+	private static MidiNote note;
+	Button randomPitch;
+	Button repeatPitch;
+	Button changeRange;
+	private static String intHigh;
+	private static String intLow;
+	//Events events;
 	
-	private JFrame frame;
-	private JPanel panel;
-	private JButton buttonPlay;
-	private JButton buttonRepeat;
-	MidiNote note;
-	//private JLabel label;
-	
-	public Frame(){
+	public static void main( String[] args ){
 		
-		note = new MidiNote();
-		box();
+		launch(args);
 		
 	}
-	
-	public void box(){
+
+	@Override
+	public void start(Stage mainStage) throws Exception {
 		
-		frame = new JFrame("Random Pitch Generator");
-		frame.setVisible(true);
-		frame.setSize(300, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		mainStage.setTitle("Random Pitch Generator");
 		
-		panel = new JPanel();
+		note = new MidiNote();
+		intLow =  "A2";
+		intHigh = "G4";
 		
-		buttonPlay = new JButton("Play new note");
-		buttonRepeat = new JButton("Repeat");
-		//label = new JLabel("Test Label");
-		buttonPlay.addActionListener( new ActionListener(){
-			
-			public void actionPerformed( ActionEvent acEvent ){
+		randomPitch = new Button();
+		randomPitch.setText("Random Pitch");
+		randomPitch.setOnAction( new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
 				
 				note.playNote();
+				
 			}
-			
+				
 		});
 		
-		buttonRepeat.addActionListener( new ActionListener(){
-			
-			public void actionPerformed( ActionEvent acEvent){
+		repeatPitch = new Button();
+		repeatPitch.setText("Repeat");
+		repeatPitch.setOnAction( new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
 				
 				note.playAgain();
 				
@@ -54,17 +67,140 @@ public class Frame {
 			
 		});
 		
-		panel.add(buttonPlay);
-		panel.add(buttonRepeat);
-		//panel.add(label);
+		changeRange = new Button();
+		changeRange.setText("Change Range");
+		changeRange.setOnAction( new EventHandler<ActionEvent>(){
+
+			@Override
+			public void handle(ActionEvent event) {
+				Range.setRange();
+				
+			}
+			
+		});
 		
-		frame.add(panel);
+		GridPane gpane = new GridPane();
+		gpane.setPadding( new Insets(5, 5, 5, 5) );
+		gpane.setVgap(5);
+		gpane.setHgap(10);
+
+		gpane.setConstraints(randomPitch, 0, 0);
+		gpane.setConstraints(repeatPitch, 1, 0);
+		gpane.setConstraints(changeRange, 2, 2);
+		gpane.getChildren().addAll(randomPitch, repeatPitch, changeRange);
+		gpane.setAlignment(Pos.TOP_CENTER);
+		
+		Scene scene = new Scene(gpane, 400, 200);
+		mainStage.setScene(scene);
+		mainStage.show();
+		
 		
 	}
 	
-	public static void main( String[] args ){
+	public static  int Note2Midi( String note ){
 		
-		new Frame();
+		int octave = 60;
+		System.out.println("Asd");
+		
+		if(note.length() != 2 || note.length() != 3 ) return -1;
+		
+		int i = 1;
+		if( note.length() == 3) i++;
+		System.out.println("asd");
+		switch( note.charAt(i) ){
+			case '1':
+				octave = 24;
+				break;
+			case '2':
+				octave = 36;
+				break;
+			case '3':
+				octave = 48;
+				break;
+			case '4':
+				octave = 60;
+				break;
+			case '5':
+				octave = 72;
+				break;
+			case '6':
+				octave = 84;
+				break;
+			default:
+				octave = 60;
+		}
+		
+		
+		switch( note.charAt(0))
+		{
+			case 'A':
+				if(i == 3){
+					octave++;
+				}
+				octave = octave + 9;
+				break;
+			case 'B':
+				if(i == 3){
+					octave++;
+				}
+				octave = octave + 11;
+				break;
+			case 'C':
+				if(i == 3){
+					octave++;
+				}
+				break;
+			case 'D':
+				if(i == 3){
+					octave++;
+				}
+				octave = octave + 2;
+				break;
+			case 'E':
+				if(i == 3){
+					octave++;
+				}
+				octave = octave + 4;
+				break;
+			case 'F':
+				if(i == 3){
+					octave++;
+				}
+				octave = octave + 5;
+				break;
+			case 'G':
+				if(i == 3){
+					octave++;
+				}
+				octave = octave + 7;
+				break;
+			default:
+				return octave;
+		}
+		
+		return octave;
 		
 	}
+	
+	public static void setIntLow( String low ){
+		intLow = low;
+	}
+	
+	public static void setIntHigh( String high ){
+		intHigh = high;
+	}
+	
+	public static String getIntHigh(){
+		return intHigh;
+	}
+	
+	public static String getIntLow(){
+		return intLow;
+	}
+	
+	public static MidiNote getNote(){
+		return note;
+	}
+
+
 }
