@@ -12,6 +12,7 @@ public class MidiNote {
 	private int pitch;
 	private int startPitch;
 	private int interval;
+	Note[] note;
 	
 	
 	public MidiNote(){
@@ -20,6 +21,13 @@ public class MidiNote {
 		pitch = 60;
 		startPitch = 45;
 		interval = 22;
+		
+		note = new Note[38];
+		for(int i = 0; i < 38; i++){
+			note[i] = new Note();
+			note[i].setPitch(i + 40);
+		}
+		
 	}
 	
 	public void playNote() {
@@ -27,11 +35,10 @@ public class MidiNote {
 		Random random = new Random();
 		pitch = random.nextInt(interval);
 		
-		Note note = new Note();
-		note.setPitch( startPitch + pitch);
+		
 		prevNote = startPitch + pitch;
-		System.out.println( prevNote );
-		Play.midi(note);
+		//System.out.println( prevNote );
+		Play.midi(note[prevNote-40]);
 
 	}
 	

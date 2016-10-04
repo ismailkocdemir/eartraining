@@ -61,7 +61,7 @@ public class Frame extends Application {
 
 			@Override
 			public void handle(ActionEvent event) {
-				//System.out.println( "number: " + Note2Midi("C3"));
+				System.out.println( Note2Midi("F5") +  " " + Note2Midi("E2"));
 				note.playAgain();
 				
 			}
