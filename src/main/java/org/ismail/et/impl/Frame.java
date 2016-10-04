@@ -24,6 +24,7 @@ public class Frame extends Application {
 	Button changeRange;
 	private static String intHigh;
 	private static String intLow;
+	
 	//Events events;
 	
 	public static void main( String[] args ){
@@ -60,7 +61,7 @@ public class Frame extends Application {
 
 			@Override
 			public void handle(ActionEvent event) {
-				
+				//System.out.println( "number: " + Note2Midi("C3"));
 				note.playAgain();
 				
 			}
@@ -73,7 +74,8 @@ public class Frame extends Application {
 
 			@Override
 			public void handle(ActionEvent event) {
-				Range.setRange();
+				Range range = new Range();
+				range.setRange();
 				
 			}
 			
@@ -88,7 +90,7 @@ public class Frame extends Application {
 		gpane.setConstraints(repeatPitch, 1, 0);
 		gpane.setConstraints(changeRange, 2, 2);
 		gpane.getChildren().addAll(randomPitch, repeatPitch, changeRange);
-		gpane.setAlignment(Pos.TOP_CENTER);
+		//gpane.setAlignment(Pos.TOP_CENTER);
 		
 		Scene scene = new Scene(gpane, 400, 200);
 		mainStage.setScene(scene);
@@ -97,16 +99,15 @@ public class Frame extends Application {
 		
 	}
 	
-	public static  int Note2Midi( String note ){
+	public static int Note2Midi( String note ){
 		
 		int octave = 60;
-		System.out.println("Asd");
 		
-		if(note.length() != 2 || note.length() != 3 ) return -1;
+		//if(note.length() != 2 || note.length() != 3 ) return -1;
 		
 		int i = 1;
 		if( note.length() == 3) i++;
-		System.out.println("asd");
+		
 		switch( note.charAt(i) ){
 			case '1':
 				octave = 24;
@@ -134,42 +135,42 @@ public class Frame extends Application {
 		switch( note.charAt(0))
 		{
 			case 'A':
-				if(i == 3){
+				if(i == 2){
 					octave++;
 				}
 				octave = octave + 9;
 				break;
 			case 'B':
-				if(i == 3){
+				if(i == 2){
 					octave++;
 				}
 				octave = octave + 11;
 				break;
 			case 'C':
-				if(i == 3){
+				if(i == 2){
 					octave++;
 				}
 				break;
 			case 'D':
-				if(i == 3){
+				if(i == 2){
 					octave++;
 				}
 				octave = octave + 2;
 				break;
 			case 'E':
-				if(i == 3){
+				if(i == 2){
 					octave++;
 				}
 				octave = octave + 4;
 				break;
 			case 'F':
-				if(i == 3){
+				if(i == 2){
 					octave++;
 				}
 				octave = octave + 5;
 				break;
 			case 'G':
-				if(i == 3){
+				if(i == 2){
 					octave++;
 				}
 				octave = octave + 7;

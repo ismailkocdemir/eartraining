@@ -16,35 +16,48 @@ import org.ismail.et.impl.Frame;
 
 public class Range {
 	
-	private static ChoiceBox<String> lowChoice;
-	private static ChoiceBox<String> highChoice;
-	static Button setRange;
+	static class Variables extends Range{
+
+		private static ChoiceBox<String> lowChoice;
+		private static ChoiceBox<String> highChoice;
+		static Button setRange;
+		static Stage window;
+		
+	}
+	
+	public Range(){
+		
+		Variables.window = new Stage();
+		Variables.lowChoice = new ChoiceBox<String>();
+		Variables.highChoice = new ChoiceBox<String>();
+		//new Variables();
+		
+	}
 	
 	public static void change(){
 		
-		
-		int low = Frame.Note2Midi( lowChoice.getValue() );
+		int low = Frame.Note2Midi( Variables.lowChoice.getValue() );
+		//System.out.println("asd");
 		Frame.getNote().setStartPitch( low  );
-		Frame.setIntLow( lowChoice.getValue() );
+		Frame.setIntLow( Variables.lowChoice.getValue() );
 		
-		int high = Frame.Note2Midi( highChoice.getValue() );
+		int high = Frame.Note2Midi( Variables.highChoice.getValue() );
 		Frame.getNote().setInterval( high - low );
-		Frame.setIntHigh( highChoice.getValue() );
+		Frame.setIntHigh( Variables.highChoice.getValue() );
 		
 	}
 	
 	public static void setRange(){
 		
-		final Stage window = new Stage();
-		window.setTitle( "Range" );
-		window.initModality( Modality.APPLICATION_MODAL );
-		window.setMinHeight(200);
-		window.setMinWidth(200);
-		
-		setRange = new Button();
-		setRange.setText("Apply");
 		
 		
+		Variables.window.setTitle( "Range" );
+		Variables.window.initModality( Modality.APPLICATION_MODAL );
+		Variables.window.setMinHeight(200);
+		Variables.window.setMinWidth(200);
+		
+		Variables.setRange = new Button();
+		Variables.setRange.setText("Apply");
 		
 		
 		GridPane gpane = new GridPane();
@@ -55,52 +68,52 @@ public class Range {
 		Label low = new Label("Bottom Note");
 		Label high = new Label("Top Note");
 		
-		ChoiceBox<String> lowChoice = new ChoiceBox<String>();
-		lowChoice.getItems().addAll("E2", "F2", "F#2", "G2", "G#2", "A2", "A#2", "B2", "C3", "C#3", "D3", "D#3", "E3", "F3");
-		lowChoice.setValue( Frame.getIntLow() );
 		
-		ChoiceBox<String> highChoice = new ChoiceBox<String>();
-		highChoice.getItems().addAll( "D4", "D#4", "E4", "F4", "F#4", "G4", "G#4", "A4", "A#4", "B4", "C5", "C#5", "D5", "D#5", "E5", "F5");
-		highChoice.setValue( Frame.getIntHigh() );
+		Variables.lowChoice.getItems().addAll("E2", "F2", "F#2", "G2", "G#2", "A2", "A#2", "B2", "C3", "C#3", "D3", "D#3", "E3", "F3");
+		Variables.lowChoice.setValue( Frame.getIntLow() );
 		
-		gpane.setConstraints(highChoice, 0, 0);
-		gpane.setConstraints(lowChoice, 1, 0);
+		
+		Variables.highChoice.getItems().addAll( "D4", "D#4", "E4", "F4", "F#4", "G4", "G#4", "A4", "A#4", "B4", "C5", "C#5", "D5", "D#5", "E5", "F5");
+		Variables.highChoice.setValue( Frame.getIntHigh() );
+		
+		gpane.setConstraints(Variables.highChoice, 0, 0);
+		gpane.setConstraints(Variables.lowChoice, 1, 0);
 		gpane.setConstraints(high, 0, 1);
 		gpane.setConstraints(low, 1, 1);
-		gpane.setConstraints(setRange, 1, 2);
+		gpane.setConstraints(Variables.setRange, 1, 2);
 		
-		gpane.getChildren().addAll( highChoice, high, lowChoice, low, setRange );
+		gpane.getChildren().addAll( Variables.highChoice, high, Variables.lowChoice, low, Variables.setRange );
 		Scene scene = new Scene(gpane);
-		window.setScene(scene);
+		Variables.window.setScene(scene);
 		
-		setRange.setOnAction(new EventHandler<ActionEvent>(){
+		Variables.setRange.setOnAction(new EventHandler<ActionEvent> (){
 			
 			@Override
 			public void handle(ActionEvent event) {
 				change();
-				window.close();
+				Variables.window.close();
 			}
 			
 		});
-		window.showAndWait();
+		Variables.window.showAndWait();
 
 		
 	}
 
-	public static ChoiceBox<String> getLowChoice() {
-		return lowChoice;
+	public ChoiceBox<String> getLowChoice() {
+		return Variables.lowChoice;
 	}
 
-	public static void setLowChoice(ChoiceBox<String> lowChoice) {
-		Range.lowChoice = lowChoice;
+	public void setLowChoice(ChoiceBox<String> lowC) {
+		Variables.lowChoice = lowC;
 	}
 
 	public static ChoiceBox<String> getHighChoice() {
-		return highChoice;
+		return Variables.highChoice;
 	}
 
-	public static void setHighChoice(ChoiceBox<String> highChoice) {
-		Range.highChoice = highChoice;
+	public static void setHighChoice(ChoiceBox<String> highC) {
+		Variables.highChoice = highC;
 	}
 	
 
