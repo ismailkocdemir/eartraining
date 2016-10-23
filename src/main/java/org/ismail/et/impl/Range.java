@@ -53,8 +53,8 @@ public class Range {
 		
 		Variables.window.setTitle( "Range" );
 		Variables.window.initModality( Modality.APPLICATION_MODAL );
-		Variables.window.setMinHeight(200);
-		Variables.window.setMinWidth(200);
+		Variables.window.setMinHeight(130);
+		Variables.window.setMinWidth(180);
 		
 		Variables.setRange = new Button();
 		Variables.setRange.setText("Apply");
@@ -65,8 +65,8 @@ public class Range {
 		gpane.setVgap(10);
 		gpane.setHgap(5);
 		
-		Label low = new Label("Bottom Note");
-		Label high = new Label("Top Note");
+		Label low = new Label("Lowest Pitch");
+		Label high = new Label("Highest Pitch");
 		
 		
 		Variables.lowChoice.getItems().addAll("E2", "F2", "F#2", "G2", "G#2", "A2", "A#2", "B2", "C3", "C#3", "D3", "D#3", "E3", "F3");
@@ -80,7 +80,7 @@ public class Range {
 		gpane.setConstraints(Variables.lowChoice, 1, 0);
 		gpane.setConstraints(high, 0, 1);
 		gpane.setConstraints(low, 1, 1);
-		gpane.setConstraints(Variables.setRange, 1, 2);
+		gpane.setConstraints(Variables.setRange, 1, 3);
 		
 		gpane.getChildren().addAll( Variables.highChoice, high, Variables.lowChoice, low, Variables.setRange );
 		Scene scene = new Scene(gpane);
@@ -88,7 +88,7 @@ public class Range {
 		
 		Variables.setRange.setOnAction(new EventHandler<ActionEvent> (){
 			
-			@Override
+			//@Override
 			public void handle(ActionEvent event) {
 				change();
 				Variables.window.close();

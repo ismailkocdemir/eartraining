@@ -1,19 +1,13 @@
 package org.ismail.et.impl;
 
 import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-
-import org.ismail.et.impl.MidiNote;
-import org.ismail.et.impl.Range;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 //import org.ismail.et.impl.Events;
 
 public class Frame extends Application {
@@ -24,8 +18,6 @@ public class Frame extends Application {
 	Button changeRange;
 	private static String intHigh;
 	private static String intLow;
-	
-	//Events events;
 	
 	public static void main( String[] args ){
 		
@@ -46,7 +38,7 @@ public class Frame extends Application {
 		randomPitch.setText("Random Pitch");
 		randomPitch.setOnAction( new EventHandler<ActionEvent>() {
 
-			@Override
+			//@Override
 			public void handle(ActionEvent event) {
 				
 				note.playNote();
@@ -59,9 +51,8 @@ public class Frame extends Application {
 		repeatPitch.setText("Repeat");
 		repeatPitch.setOnAction( new EventHandler<ActionEvent>() {
 
-			@Override
+			//@Override
 			public void handle(ActionEvent event) {
-				System.out.println( Note2Midi("F5") +  " " + Note2Midi("E2"));
 				note.playAgain();
 				
 			}
@@ -72,7 +63,7 @@ public class Frame extends Application {
 		changeRange.setText("Change Range");
 		changeRange.setOnAction( new EventHandler<ActionEvent>(){
 
-			@Override
+			//@Override
 			public void handle(ActionEvent event) {
 				Range range = new Range();
 				range.setRange();
@@ -88,11 +79,11 @@ public class Frame extends Application {
 
 		gpane.setConstraints(randomPitch, 0, 0);
 		gpane.setConstraints(repeatPitch, 1, 0);
-		gpane.setConstraints(changeRange, 2, 2);
+		gpane.setConstraints(changeRange, 1, 1);
 		gpane.getChildren().addAll(randomPitch, repeatPitch, changeRange);
 		//gpane.setAlignment(Pos.TOP_CENTER);
 		
-		Scene scene = new Scene(gpane, 400, 200);
+		Scene scene = new Scene(gpane, 250, 160);
 		mainStage.setScene(scene);
 		mainStage.show();
 		
