@@ -48,9 +48,7 @@ public class Range {
 	}
 	
 	public static void setRange(){
-		
-		
-		
+
 		Variables.window.setTitle( "Range" );
 		Variables.window.initModality( Modality.APPLICATION_MODAL );
 		Variables.window.setMinHeight(130);

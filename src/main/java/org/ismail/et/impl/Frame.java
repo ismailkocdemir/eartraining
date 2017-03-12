@@ -81,7 +81,7 @@ public class Frame extends Application {
 		gpane.setConstraints(repeatPitch, 1, 0);
 		gpane.setConstraints(changeRange, 1, 1);
 		gpane.getChildren().addAll(randomPitch, repeatPitch, changeRange);
-		//gpane.setAlignment(Pos.TOP_CENTER);
+
 		
 		Scene scene = new Scene(gpane, 250, 160);
 		mainStage.setScene(scene);
@@ -194,5 +194,7 @@ public class Frame extends Application {
 		return note;
 	}
 
+	/* TODO:  Add a database to keep statistics
+	 *  TODO: Improve the windows for foth Frame and Range  */
 
 }
